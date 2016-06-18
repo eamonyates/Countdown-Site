@@ -98,6 +98,13 @@
     }
 
 
+    if ($_GET['action'] == 'addCountdown') {
+        
+        print_r($_POST);
+        
+    }
+
+
     if ($_GET['action'] == 'logout') {
         
         session_unset();

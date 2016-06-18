@@ -32,7 +32,7 @@
                     <a href="">Inspire others and make your countdown public...</a>
                 </div>
                 <a href="" class="btn btn-lg btn-primary" id="addCountdown" data-toggle="modal" data-target="#addCountdownModal">Add A New Countdown</a>
-               
+
             </div>
             <div class="col-md-5" id="otherCountdowns">
                 <h3>Your other countdowns</h3>
@@ -66,7 +66,7 @@
                     <h4 class="modal-title" id="countdownModalLabel">Add A New Countdown</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- TODO: Add a div that shows on focus of goal input to choose how to display the item -->
+                    
                     <div class="alert alert-danger" id="countdownAlert"></div>
 
                     <form>
@@ -75,6 +75,27 @@
                             <label for="countdownGoal" class="col-sm-2 form-control-label">Your Goal</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="countdownGoal" placeholder="The goal of your countdown...">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" id="goalDescription">
+                            <label class="col-sm-2">Which do you prefer?</label>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="goalRadios" id="yourGoalRadio" value="yourGoal" checked> left until your <span class="cdgoal"></span>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="goalRadios" id="theGoalRadio" value="theGoal"> left until the <span class="cdgoal"></span>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="goalRadios" id="goalRadio" value="goal"> left until <span class="cdgoal"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -88,21 +109,31 @@
                         <div class="form-group row">
                             <label for="timepicker" class="col-sm-2 form-control-label">End Time</label>
                             <div class="col-sm-10">
-                                <select class="c-select">
+                                <select class="c-select" id="endTimeHours">
                                     <option disabled selected>Hours</option>
-                                    <?php for ($hours = 0; $hours <= 23; $hours++) { ?>
-                                        <option value="<?php echo $hours ?>"><?php echo $hours ?></option>
+                                    <?php for ($hours = 0; $hours <= 23; $hours++) { 
+                                        $paddedHours = sprintf("%02d", $hours);
+                                        ?>
+
+                                        <option value="<?php echo $paddedHours; ?>">
+                                            <?php echo $paddedHours; ?>
+                                        </option>
+                                        
                                     <?php } ?>
                                 </select>
 
-                                <select class="c-select">
+                                <select class="c-select" id="endTimeMinutes">
                                     <option disabled selected>Minutes</option>
-                                    <?php for ($minutes = 0; $minutes <= 59; $minutes++) { ?>
-                                        <option value="<?php echo $minutes ?>"><?php echo $minutes ?></option>
+                                    <?php for ($minutes = 0; $minutes <= 59; $minutes++) { 
+                                        $paddedMinutes = sprintf("%02d", $minutes);
+                                        ?>
+                                        <option value="<?php echo $paddedMinutes; ?>">
+                                            <?php echo $paddedMinutes; ?>
+                                        </option>
                                     <?php } ?>
                                 </select>
-                                
-                                <select class="c-select">
+
+                                <select class="c-select" id="endTimeTZ">
                                     <option disabled selected>Select Timezone</option>
                                     <option value="UTC-1200">UTC -12:00</option>
                                     <option value="UTC-1100">UTC -11:00</option>
@@ -151,8 +182,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning" id="signUpBtn">Add Countdown</button>
+                    <button type="button" id="test" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" id="addCountdownBtn">Add Countdown</button>
                 </div>
             </div>
         </div>

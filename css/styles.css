@@ -147,6 +147,10 @@ footer {
     text-transform: uppercase;
 }
 
+#goalDescription {
+    display: none;
+}
+
 #otherCountdowns h3 {
     font-weight:normal;
     text-align:center;
