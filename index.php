@@ -36,7 +36,8 @@
         include 'views/nav.php';
         
     }
-        
+
+            
     // NOTE: Chooses which Page to use
     if ($_GET['page'] == 'inspiration') {
         
