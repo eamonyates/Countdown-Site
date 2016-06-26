@@ -177,7 +177,17 @@
                                 </select>
                             </div>
                         </div>
-
+                        
+                        <div class="form-group row">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="makePrimaryCD" value="false"> Make this my primary countdown
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </form>
 
                 </div>

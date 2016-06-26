@@ -76,6 +76,16 @@ $("#countdownGoal").focus(function() {
 });
 
 
+// Set Make Primary Countdown Checkbox value to True if checked
+$('#makePrimaryCD').click(function() {
+    if($(this).prop("checked") === true) { 
+        $(this).attr("value", "true");
+    } else {
+        $(this).attr("value", "false");
+    }
+});
+
+
 // NOTE: If Add Countdown button is clicked, validate form and use AJAX to submit POST request
 $("#addCountdownBtn").click(function() {
     
@@ -84,19 +94,35 @@ $("#addCountdownBtn").click(function() {
     if (!$("#countdownGoal").val()) {
         errorMsg = "Please enter a goal for your countdown";
     } else if (!$("#datepicker").val() || !$("#endTimeHours").val() || !$("#endTimeMinutes").val() || !$("#endTimeTZ").val()) {
-        errorMsg = "Please enter an end date and time for your countdown";
+        errorMsg = "Please enter an end date, time and timezone for your countdown";
     } else {
-
+        
+        var countdownGoal = $("#countdownGoal").val();
+        var goalDescription = $('input[name="goalRadios"]:checked').val();
+        var goalAndDescription = "";
+        
+        var d = new Date();
+        var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
+        
+        if (goalDescription == "yourGoal") {
+            goalAndDescription = "your " + countdownGoal + "!";
+        } else if (goalDescription == "theGoal") {
+            goalAndDescription = "the " + countdownGoal + "!";
+        } else if (goalDescription == "goal") {
+            goalAndDescription = countdownGoal + "!";
+        }
+        
         $.ajax({
             type: "POST",
             url: "controls/actions.php?action=addCountdown",
-            data: "countdownGoal=" + $("#countdownGoal").val() + "&goalDesc=" + $('input[name="goalRadios"]:checked').val() + "&endDateTime=" + $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val(),
+            data: "countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val() + "&makePrimaryCD=" + $("#makePrimaryCD").val(),
             success: function(result) {
 
                 alert(result);
                 
                 if (result == "addCountdown") {
 
+                    alert("countdown added");
                     //window.location.assign("?page=loggedIn");
 
                 } 

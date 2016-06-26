@@ -3,7 +3,7 @@
 /////////////////////////////////
 
 var deadline = '08/24/2016 15:30:25 UTC+0100';
-var start = '04/21/2016 08:30:25 GMT+0100'; // NOTE: Only used for working out progress
+var start = '04/21/2016 08:30:25 UTC-0000'; // NOTE: Only used for working out progress
 
 // TEST:
 //var t = Date.parse(deadline) - Date.parse(new Date());
