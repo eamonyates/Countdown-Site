@@ -79,9 +79,18 @@ $("#countdownGoal").focus(function() {
 // Set Make Primary Countdown Checkbox value to True if checked
 $('#makePrimaryCD').click(function() {
     if($(this).prop("checked") === true) { 
-        $(this).attr("value", "true");
+        $(this).attr("value", "1");
     } else {
-        $(this).attr("value", "false");
+        $(this).attr("value", "0");
+    }
+});
+
+// Set Make Public Countdown Checkbox value to True if checked
+$('#makePublicCD').click(function() {
+    if($(this).prop("checked") === true) { 
+        $(this).attr("value", "1");
+    } else {
+        $(this).attr("value", "0");
     }
 });
 
@@ -115,17 +124,22 @@ $("#addCountdownBtn").click(function() {
         $.ajax({
             type: "POST",
             url: "controls/actions.php?action=addCountdown",
-            data: "countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val() + "&makePrimaryCD=" + $("#makePrimaryCD").val(),
+            data: "countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val() + "&makePrimaryCD=" + $("#makePrimaryCD").val() + "&makePublicCD=" +$("#makePublicCD").val(),
             success: function(result) {
-
-                alert(result);
                 
-                if (result == "addCountdown") {
+                if (result == "addedCountdown") {
 
-                    alert("countdown added");
-                    //window.location.assign("?page=loggedIn");
+                    $("#countdownAddedAlert").html("Added your new countdown successfully").fadeIn().delay(2500).fadeOut();
+                    
+                    setTimeout( function() { 
+                        window.location.assign("?page=loggedIn");
+                    }, 2800 );
 
-                } 
+                } else {
+                    
+                    $("#countdownAlert").html(result).fadeIn().delay(2500).fadeOut();
+                    
+                }
             } 
         });
     }

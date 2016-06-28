@@ -68,6 +68,7 @@
                 <div class="modal-body">
                     
                     <div class="alert alert-danger" id="countdownAlert"></div>
+                    <div class="alert alert-success" id="countdownAddedAlert"></div>
 
                     <form>
 
@@ -149,7 +150,7 @@
                                     <option value="UTC-0300">UTC -03:00 (Rio)</option>
                                     <option value="UTC-0200">UTC -02:00</option>
                                     <option value="UTC-0100">UTC -01:00</option>
-                                    <option value="UTC+0000">UTC +00:00 (London)</option>
+                                    <option value="UTC-0000">UTC +00:00 (London)</option>
                                     <option value="UTC+0100">UTC +01:00 (London - BST)</option>
                                     <option value="UTC+0200">UTC +02:00</option>
                                     <option value="UTC+0300">UTC +03:00 (Moscow)</option>
@@ -182,7 +183,12 @@
                             <div class="col-sm-10 col-sm-offset-2">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="makePrimaryCD" value="false"> Make this my primary countdown
+                                        <input type="checkbox" id="makePrimaryCD" value="0"> Make this my primary countdown
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="makePublicCD" value="0"> Share this countdown with everyone
                                     </label>
                                 </div>
                             </div>

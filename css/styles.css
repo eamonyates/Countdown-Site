@@ -77,7 +77,7 @@ h6 {
     color:#000;
 }
 
-#signupAlert, #countdownAlert {
+#signupAlert, #countdownAlert, #countdownAddedAlert {
     display: none;
 }
 
