@@ -76,7 +76,7 @@ $("#countdownGoal").focus(function() {
 });
 
 
-// Set Make Primary Countdown Checkbox value to True if checked
+// NOTE: Set Make Primary Countdown Checkbox value to True if checked
 $('#makePrimaryCD').click(function() {
     if($(this).prop("checked") === true) { 
         $(this).attr("value", "1");
@@ -85,7 +85,7 @@ $('#makePrimaryCD').click(function() {
     }
 });
 
-// Set Make Public Countdown Checkbox value to True if checked
+// NOTE: Set Make Public Countdown Checkbox value to True if checked
 $('#makePublicCD').click(function() {
     if($(this).prop("checked") === true) { 
         $(this).attr("value", "1");
@@ -113,6 +113,10 @@ $("#addCountdownBtn").click(function() {
         var d = new Date();
         var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
         
+        var endDatetime = $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val();
+        var encodedEndDateTime = encodeURIComponent(endDatetime);
+        
+        // NOTE: Apply goal descriptor
         if (goalDescription == "yourGoal") {
             goalAndDescription = "your " + countdownGoal + "!";
         } else if (goalDescription == "theGoal") {
@@ -121,10 +125,11 @@ $("#addCountdownBtn").click(function() {
             goalAndDescription = countdownGoal + "!";
         }
         
+        // NOTE: AJAX request to add countdown to DB
         $.ajax({
             type: "POST",
             url: "controls/actions.php?action=addCountdown",
-            data: "countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val() + "&makePrimaryCD=" + $("#makePrimaryCD").val() + "&makePublicCD=" +$("#makePublicCD").val(),
+            data: "countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + encodedEndDateTime + "&makePrimaryCD=" + $("#makePrimaryCD").val() + "&makePublicCD=" +$("#makePublicCD").val(),
             success: function(result) {
                 
                 if (result == "addedCountdown") {
@@ -147,5 +152,29 @@ $("#addCountdownBtn").click(function() {
     if (errorMsg != "") {
         $("#countdownAlert").html(errorMsg).fadeIn().delay(2500).fadeOut();
     }
-    
+
 });
+
+
+//NOTE: Function to start countdown using data from DB collected via ajax
+function startCountdown() {
+        
+    $.ajax({                                      
+        url: "controls/actions.php?action=countdownInfo",
+        data:"",
+        dataType:'JSON',
+        success: function(result) {
+            
+            var goal = result[1];
+            var startDatetime = result[3];
+            var endDatetime = result[4];
+            
+            initializeClock('countdown', startDatetime, endDatetime);
+            $("#countdownGoalDisplay").html(goal);
+
+        }
+    });     
+};
+
+
+startCountdown();

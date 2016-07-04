@@ -117,7 +117,7 @@
             
         } else {
             
-            //Insert new Countdown into database
+            // NOTE: Insert new Countdown into database
             $query = "INSERT INTO countdowns (`goal`, `userid`, `startdatetime`, `enddatetime`, `makepublic`) VALUES ('".mysqli_real_escape_string($link, $_POST['countdownGoal'])."', '".mysqli_real_escape_string($link, $_SESSION['id'])."', '".mysqli_real_escape_string($link, $_POST['startDateTime'])."', '".mysqli_real_escape_string($link, $_POST['endDateTime'])."', '".mysqli_real_escape_string($link, $_POST['makePublicCD'])."')";
             
             mysqli_query($link, $query);
@@ -151,6 +151,31 @@
         
     }
 
+
+    if ($_GET['action'] == 'countdownInfo') {
+        
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            $selectQuery = "SELECT * FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
+            
+            $result = mysqli_query($link, $selectQuery);
+            $array = mysqli_fetch_row($result);
+            
+            $getCountdownQuery = "SELECT * FROM countdowns WHERE id = '".$array[2]."' LIMIT 1";
+            
+            $getCountdownResult = mysqli_query($link, $getCountdownQuery);
+            $getCountdownArray = mysqli_fetch_row($getCountdownResult);
+        
+            echo json_encode($getCountdownArray);
+            
+        }
+        
+    }
+    
 
     if ($_GET['action'] == 'logout') {
         

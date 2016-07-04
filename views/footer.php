@@ -14,8 +14,8 @@
     <script src="js/jquery-2.2.0.min.js"></script>
     <script src="js/jquery-ui-1.11.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/app.js"></script>
     <script src="js/countdown.js"></script>
+    <script src="js/app.js"></script>
     
 </body>
 

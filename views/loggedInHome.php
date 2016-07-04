@@ -17,7 +17,7 @@
         </div>
         <div class="row" id="timerDescription">
             <div class="col-md-12">
-                <h2>left until your thing!</h2>
+                <h2>left until <span id="countdownGoalDisplay"></span></h2>
             </div>
         </div>
     </div>
