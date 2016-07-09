@@ -132,7 +132,7 @@ $("#addCountdownBtn").click(function() {
             data: "countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + encodedEndDateTime + "&makePrimaryCD=" + $("#makePrimaryCD").val() + "&makePublicCD=" +$("#makePublicCD").val(),
             success: function(result) {
                 
-                if (result == "addedCountdown") {
+                if (result === "addedCountdown") {
 
                     $("#countdownAddedAlert").html("Added your new countdown successfully").fadeIn().delay(2500).fadeOut();
                     
@@ -175,6 +175,28 @@ function startCountdown() {
         }
     });     
 };
+
+//TODO: Have HTML change dynamically to add or remove countdown from public
+$("#makePublicLink").click(function() {
+    $.ajax({
+        type: "POST",
+        url: "controls/actions.php?action=makePublic",
+        data: "",
+        success: function(result) {
+            
+            if (result === "countdownNowPublic") {
+                
+                $("#countdownPublicAlert").addClass("alert-success").html("Your countdown is now public").fadeIn().delay(2500).fadeOut();
+                
+            } else {
+            
+                $("#countdownPublicAlert").addClass("alert-danger").html(result).fadeIn().delay(2500).fadeOut();
+                
+            }
+            
+        }
+    });
+});
 
 
 startCountdown();

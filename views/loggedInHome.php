@@ -1,4 +1,6 @@
-<div class="content">
+    <div class="alert" id="countdownPublicAlert"></div>
+
+   <div class="content">
     <div class="container" id="countdown">
         <div class="row" id="timerBig">
             <div class="col-md-3">Years
@@ -29,9 +31,9 @@
                     <h3>Your Countdown Progress</h3>
                     <p class="lead" id="progressText"></p>
                     <progress id="progressBar" class="progress" value="75" max="100"></progress>
-                    <a href="">Inspire others and make your countdown public...</a>
+                    <a id="makePublicLink">Inspire others and make your countdown public...</a>
                 </div>
-                <a href="" class="btn btn-lg btn-primary" id="addCountdown" data-toggle="modal" data-target="#addCountdownModal">Add A New Countdown</a>
+                <a class="btn btn-lg btn-primary" id="addCountdown" data-toggle="modal" data-target="#addCountdownModal">Add A New Countdown</a>
 
             </div>
             <div class="col-md-5" id="otherCountdowns">
@@ -48,7 +50,7 @@
                     <h4>Countdown 3</h4>
                     <p>1 hour and 7 minutes to go</p>
                 </div>
-                <a href="" id="allCountdowns">All your countdowns...</a>
+                <a href="?page=allCountdowns" id="allCountdowns">All your countdowns...</a>
             </div>
         </div>
     </div>

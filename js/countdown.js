@@ -2,6 +2,7 @@
 // NOTE: Countdown clock below //
 /////////////////////////////////
 
+// DEFAULT VALUES:
 //var deadline = '08/24/2016 15:30:25 UTC+0100';
 //var start = '04/21/2016 08:30:25 UTC-0000'; // NOTE: Only used for working out progress
 
@@ -116,4 +117,5 @@ function initializeClock(id, starttime, endtime) {
     var timeinterval = setInterval(updateClock, 1000);
 }
 
+// INITIALIZATION HANDLED IN APP.js
 //initializeClock('countdown', start, deadline);

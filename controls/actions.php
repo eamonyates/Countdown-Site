@@ -175,6 +175,31 @@
         }
         
     }
+
+    
+    if ($_GET['action'] == 'makePublic') {
+        
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            // NOTE: Update default countdown to make it public
+            $selectQuery = "SELECT * FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
+            
+            $result = mysqli_query($link, $selectQuery);
+            $array = mysqli_fetch_row($result);
+            
+            $updateQuery = "UPDATE countdowns SET makepublic = '1' WHERE id = '".$array[2]."' LIMIT 1";
+            mysqli_query($link, $updateQuery);
+            
+            //TODO: Create success result
+            echo "countdownNowPublic";
+            
+        }
+        
+    }
     
 
     if ($_GET['action'] == 'logout') {

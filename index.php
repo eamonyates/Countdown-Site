@@ -43,6 +43,10 @@
         
         include 'views/inspiration.php';
     
+    } else if ($_GET['page'] == 'allCountdowns') {
+        
+        include 'views/allCountdowns.php';
+    
     } else if ($_GET['page'] == 'walkthrough') {
         
         include 'views/walkthrough.php';
