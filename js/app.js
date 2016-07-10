@@ -200,16 +200,6 @@ function startCountdown() {
 };
 
 
-//NOTE: Function to read the GET variable in the URL
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-        vars[key] = value;
-    });
-    return vars;
-}
-
-
 //NOTE: Function to run when the profile page is selected
 function checkPage() {
 
@@ -239,12 +229,10 @@ function checkPage() {
                             $("#profileCountdowns").append('<div class="container individualCountdown" id="countdownContainer'+i+'"></div>');
                         }
 
-                        $("#countdownContainer"+i).append('<div class="row individualCountdown"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until '+goal+'</h6></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger">Delete Countdown</button></div></div>');
-                        
+                        $("#countdownContainer"+i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until '+goal+'</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger">Delete Countdown</button></div></div>');
                         
                     }
                     
-                    /*
                     for (i = 0; i < result.length; i++) {
                         
                         var startDatetime = result[i]['startdatetime'];
@@ -255,7 +243,6 @@ function checkPage() {
                         console.log('countdownContainer'+i);
                         
                     }
-                    */
                     
                 }
 

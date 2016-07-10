@@ -35,7 +35,7 @@
 
     <section id="profileCountdowns">
        
-        <!-- NOTE: Example code that is dynamically inserted via jQuery
+        <!-- NOTE: example of countdown layout HTML
         
         <div class="container individualCountdown striped">
             <div class="row individualCountdown">
@@ -44,11 +44,8 @@
                 </div>
                 <div class="col-xs-12">
                     <h6>Left until <span id="profileCountdownGoal">Countdown Goal</span></h6>
-                </div>
-                <div id="countdownProgress">
-                    <h3>Your Countdown Progress</h3>
-                    <p class="lead" class="progressText"></p>
-                    <progress id="progressBar" class="progress" value="75" max="100"></progress>
+                    <p>Your Countdown Progress is <span class="progressText">85%</span></p>
+                    <progress class="progress progressBar" value="75" max="100"></progress>
                 </div>
                 <div class="col-xs-12 profileCountdownBtns">
                     <button class="btn btn-info-outline">Edit Countdown</button>

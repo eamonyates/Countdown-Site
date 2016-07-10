@@ -13,6 +13,17 @@
 //console.log(t);
 //console.log(start);
 
+
+//NOTE: Function to read the GET variable in the URL
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+
+
 function getTimeRemaining(endtime) {
     var t = Date.parse(endtime) - Date.parse(new Date());
     
@@ -81,7 +92,8 @@ function initializeClock(id, starttime, endtime) {
 
             var complete = Date.parse(new Date()) - Date.parse(starttime);
             var percent = 0;
-
+            
+            /*
             function setPercent(percent) {
                 document.getElementById('progressText').innerHTML = percent + '%';
                 document.getElementById('progressBar').setAttribute('value', percent);
@@ -91,6 +103,35 @@ function initializeClock(id, starttime, endtime) {
                     document.getElementById('progressBar').className += " " + "progress-success";
                 } else {
                     document.getElementById('progressBar').className += " " + "progress-warning";
+                }
+
+            }
+            */
+            
+            function setPercent(percent) {
+                
+                if (getUrlVars()["page"] === "profile") {
+                
+                    var progressText = clock.querySelector('.progressText');
+                    var progressBar = clock.querySelector('.progressBar');
+                
+                } else if (getUrlVars()["page"] === "loggedIn") {
+                    
+                    var progressText = document.getElementById('countdownProgress').querySelector('.progressText');
+                    var progressBar = document.getElementById('countdownProgress').querySelector('.progressBar');
+                    
+                }
+                
+                progressText.innerHTML = percent + '%';
+                progressBar.setAttribute('value', percent);
+                progressBar.innerHTML = ('value', percent + '%');
+
+                if (percent >= 50 && percent < 100) {
+                    progressBar.className += " " + "progress-warning";
+                } else if (percent < 50) {
+                    progressBar.className += " " + "progress-danger";
+                } else {
+                    progressBar.className += " " + "progress-success";
                 }
 
             }

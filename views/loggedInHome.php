@@ -29,8 +29,8 @@
             <div class="col-md-7">
                 <div id="countdownProgress">
                     <h3>Your Countdown Progress</h3>
-                    <p class="lead" id="progressText"></p>
-                    <progress id="progressBar" class="progress" value="75" max="100"></progress>
+                    <p class="lead progressText" id="progressText"></p>
+                    <progress id="progressBar" class="progress progressBar" value="75" max="100"></progress>
                     <a id="makePublicLink">Inspire others and make your countdown public...</a>
                 </div>
                 <a class="btn btn-lg btn-primary" id="addCountdown" data-toggle="modal" data-target="#addCountdownModal">Add A New Countdown</a>
