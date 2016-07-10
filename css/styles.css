@@ -174,7 +174,68 @@ footer {
     color: rgba(0,0,0,0.6) !important;
 }
 
+/* PROFILE PAGE */
 
+#profilePicture {
+    margin-top: -20px;
+    margin-left: 25px;
+    height: 250px;
+    width:250px;
+    background-color:#adadaf;
+    background-image: url(images/timer.jpg);
+    background-size:cover;
+    background-position: center;
+    border-radius: 125px;
+    border:#ddd 8px solid;
+}
+
+#personalInfo {
+    margin-top:40px;
+    -webkit-transform: rotate(-2deg);
+    transform: rotate(-2deg);
+}
+
+#personalInfo h2 {
+    margin-bottom: 25px;
+}
+
+#profileInfo {
+    margin-top:20px;
+    padding:20px;
+    position: relative;
+    box-shadow: 3px 12px 10px #777;
+    -webkit-transform: rotate(2deg);
+    transform: rotate(2deg);
+    -webkit-backface-visibility: hidden;
+}
+
+#countdownHead {
+    margin: 70px 0 20px;
+}
+
+.countdownList {
+    margin-top:20px;
+}
+
+.profileCountdownBtns {
+    margin-top: 20px;
+}
+
+.profileCountdownBtnsDelete {
+    margin: 10px 0 0;
+}
+
+.individualCountdown {
+    padding:20px;
+}
+
+.striped {
+    background-color: #f9f9f9;
+}
+
+.spacer {
+    height:20px;
+}
 
 /* MEDIA QUERIES */
 
@@ -189,4 +250,14 @@ footer {
         margin:20px 15px;
     }
     
+}
+
+@media (max-width: 62em) {
+    #profilePicture{
+        margin: 20px auto 10px auto;
+    }
+    
+    #personalInfo {
+        margin-top:30px;
+    }
 }
