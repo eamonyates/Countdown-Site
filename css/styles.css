@@ -249,7 +249,12 @@ footer {
     #otherCountdowns {
         margin:20px 15px;
     }
-    
+}
+
+@media (min-width: 62em) {
+    .profileProgressBar {
+        width: 70%;
+    }
 }
 
 @media (max-width: 62em) {
