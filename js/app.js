@@ -156,7 +156,6 @@ $("#addCountdownBtn").click(function () {
 });
 
 
-//TODO: Have HTML change dynamically to add or remove countdown from public
 $("#makePublicLink").click(function () {
     $.ajax({
         type: "POST",
@@ -187,7 +186,7 @@ function startCountdown() {
         data: "",
         dataType: 'JSON',
         success: function (result) {
-            
+
             var goal = result[1];
             var startDatetime = result[3];
             var endDatetime = result[4];
@@ -204,58 +203,90 @@ function startCountdown() {
 function checkPage() {
 
     if (getUrlVars()["page"] === "profile") {
-        
+
         $.ajax({
-        url: "controls/actions.php?action=fetchCountdowns",
-        data: '',
-        dataType: 'JSON',
-        success: function (result) {
+            url: "controls/actions.php?action=fetchCountdowns",
+            data: '',
+            dataType: 'JSON',
+            success: function (result) {
+
+                //TODO: make public button to switch if already public
+                //TODO: actions for edit and delete buttons
                 
-                //TODO: Create AJAX request to get countdown info
-            
-                if (result.length === 0 ) {
-                    
-                    $('#profileCountdowns').html("You currently have no countdowns to show, why don't you add a new one now");
-                    
+                if (result.length === 0) {
+
+                    $('#profileCountdownsError').html("You currently have no countdowns to show, why don't you add a new one now?");
+
                 } else {
-                    
+
                     for (i = 0; i < result.length; i++) {
 
                         var goal = result[i]['goal'];
-
-                        if (i === 0 || i % 2 === 0) {
-                            $("#profileCountdowns").append('<div class="container individualCountdown striped" id="countdownContainer'+i+'"></div>');
-                        } else {
-                            $("#profileCountdowns").append('<div class="container individualCountdown" id="countdownContainer'+i+'"></div>');
-                        }
-
-                        $("#countdownContainer"+i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until '+goal+'</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger">Delete Countdown</button></div></div>');
+                        var profileCountdownId = result[i]['id'];
                         
+                        //NOTE: This creates the striped layout
+                        if (i === 0 || i % 2 === 0) {
+                            $("#profileCountdowns").append('<div class="container individualCountdown striped" id="countdownContainer' + i + '" data-countdown="' + profileCountdownId + '"></div>');
+                        } else {
+                            $("#profileCountdowns").append('<div class="container individualCountdown" id="countdownContainer' + i + '" data-countdown="' + profileCountdownId + '"></div>');
+                        }
+                        
+                        //NOTE: Add all countdowns
+                        $("#countdownContainer" + i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until ' + goal + '</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger profileDeleteCountdown" data-id="' + profileCountdownId + '">Delete Countdown</button></div></div>');
+
                     }
                     
+                    //NOTE: Initializes all countdowns
                     for (i = 0; i < result.length; i++) {
-                        
+
                         var startDatetime = result[i]['startdatetime'];
                         var endDatetime = result[i]['enddatetime'];
-                        
-                        initializeClock('countdownContainer'+i, startDatetime, endDatetime);
-                        
-                        console.log('countdownContainer'+i);
-                        
+
+                        initializeClock('countdownContainer' + i, startDatetime, endDatetime);
+
                     }
                     
+                    //NOTE: Function to delete countdown
+                    $(".profileDeleteCountdown").click(function () {
+                        
+                        var containerId = $(this).data("id");
+                        
+                        $.ajax({
+                            type: "POST",
+                            url: "controls/actions.php?action=deleteCountdown",
+                            data: "countdownId=" + $(this).data("id"),
+                            success: function (resultDelete) {
+                                
+                                if (resultDelete === "countdownDeleted") {
+
+                                    $("#profileCountdownAlert").addClass("alert-success").html("Your countdown has been successfully deleted").fadeIn().delay(2500).fadeOut();
+                                    
+                                    $('*[data-countdown="' + containerId + '"]').fadeOut();
+
+                                } else {
+
+                                    $("#profileCountdownAlert").addClass("alert-danger").html("We couldn't delete your countdown right now, please try again later").fadeIn().delay(2500).fadeOut();
+                                    
+                                }
+
+                            }
+                        });
+                    });
+
+
+
                 }
 
             }
-        
+
         });
-    
+
     } else if (getUrlVars()["page"] === "loggedIn") {
-        
+
         startCountdown();
-    
+
     }
-        
+
 }
 
 

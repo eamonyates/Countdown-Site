@@ -86,7 +86,7 @@ a:hover {
     display: none;
 }
 
-#loginAlert, #countdownPublicAlert {
+#loginAlert, #countdownPublicAlert, #profileCountdownAlert {
     margin:-6px 0 0 0;
     border-radius:0;
     display:none;

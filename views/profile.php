@@ -1,3 +1,5 @@
+<div class="alert" id="profileCountdownAlert"></div>
+
 <div class="content">
     <div class="container" id="profileInfo">
         <div class="row" id="personalInfo">
@@ -34,7 +36,11 @@
     </div>
 
     <section id="profileCountdowns">
-       
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12" id="profileCountdownsError"></div>
+            </div>
+        </div>
         <!-- NOTE: example of countdown layout HTML
         
         <div class="container individualCountdown striped">
@@ -52,13 +58,13 @@
                     <button class="btn btn-warning-outline">Make Public</button>
                 </div>
                 <div class="col-xs-12 profileCountdownBtnsDelete">
-                    <button class="btn btn-danger">Delete Countdown</button>
+                    <button class="btn btn-danger profileDeleteCountdown">Delete Countdown</button>
                 </div>
             </div>
         </div>
         
         -->
-        
+
     </section>
 
     <div class="spacer"></div>

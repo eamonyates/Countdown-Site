@@ -123,12 +123,13 @@
             mysqli_query($link, $query);
             $countdownID = mysqli_insert_id($link);
             
+            //NOTE: Add Countdown to Default Countdown
             $selectQuery = "SELECT * FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
 
             $result = mysqli_query($link, $selectQuery);
 
             if (mysqli_num_rows($result) === 0) {
-
+                
                 $insertQuery = "INSERT INTO default_countdown (`user_id`, `countdown_id`) VALUES ('".mysqli_real_escape_string($link, $_SESSION['id'])."', '".$countdownID."')";
 
                 mysqli_query($link, $insertQuery);
@@ -194,8 +195,57 @@
             $updateQuery = "UPDATE countdowns SET makepublic = '1' WHERE id = '".$array[2]."' LIMIT 1";
             mysqli_query($link, $updateQuery);
             
-            //TODO: Create success result
             echo "countdownNowPublic";
+            
+        }
+        
+    }
+
+    
+    //NOTE: Delete Countdown and replace default countdown if necessary
+    if ($_GET['action'] == 'deleteCountdown') {
+        
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            $selectQuery = "SELECT * FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' AND countdown_id = '".$_POST['countdownId']."' LIMIT 1";
+            
+            $result = mysqli_query($link, $selectQuery);
+            
+            if (mysqli_num_rows($result) === 0) {
+                
+                $deleteQuery = "DELETE FROM countdowns WHERE id = '".mysqli_real_escape_string($link, $_POST['countdownId'])."' LIMIT 1";
+                mysqli_query($link, $deleteQuery);
+                
+                echo "countdownDeleted";
+                
+            } else {
+                
+                $deleteDefaultCountdownQuery = "DELETE FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' AND countdown_id = '".mysqli_real_escape_string($link, $_POST['countdownId'])."' LIMIT 1";
+                mysqli_query($link, $deleteDefaultCountdownQuery);
+                
+                $deleteQuery = "DELETE FROM countdowns WHERE id = '".mysqli_real_escape_string($link, $_POST['countdownId'])."' LIMIT 1";
+                mysqli_query($link, $deleteQuery);
+                
+                $selectNewCountdownQuery = "SELECT * FROM countdowns WHERE userid = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
+                $newDefaultResult = mysqli_query($link, $selectNewCountdownQuery);
+                
+                if (mysqli_num_rows($newDefaultResult) === 1) {
+                    
+                    $array = mysqli_fetch_row($newDefaultResult);
+                    
+                    $insertQuery = "INSERT INTO default_countdown (`user_id`, `countdown_id`) VALUES ('".mysqli_real_escape_string($link, $_SESSION['id'])."', '".$array[0]."')";
+
+                    mysqli_query($link, $insertQuery);
+                    
+                }
+                
+                echo "countdownDeleted";
+                
+            }
             
         }
         
