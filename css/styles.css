@@ -82,7 +82,11 @@ a:hover {
     color:#000;
 }
 
-#signupAlert, #countdownAlert, #countdownAddedAlert {
+#signupAlert, 
+#countdownAlert, 
+#countdownAddedAlert, 
+#profileEditCountdownAlert,
+#profileEditCountdownEditedAlert {
     display: none;
 }
 
@@ -152,8 +156,17 @@ footer {
     text-transform: uppercase;
 }
 
-#goalDescription {
+#goalDescription,
+#profileEditGoalDescription {
     display: none;
+}
+
+#editCountdown-modal-header {
+    background-color:#5bc0de;
+}
+
+#profileEditCountdownModalLabel {
+    color:white;
 }
 
 #otherCountdowns h3 {

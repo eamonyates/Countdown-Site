@@ -105,7 +105,7 @@
                         <div class="form-group row">
                             <label for="datepicker" class="col-sm-2 form-control-label">End Date</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="datepicker" placeholder="Choose a date...">
+                                <input type="text" class="form-control datepicker" id="loggedInDatepicker" placeholder="Choose a date...">
                             </div>
                         </div>
 
@@ -185,12 +185,12 @@
                             <div class="col-sm-10 col-sm-offset-2">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="makePrimaryCD" value="0"> Make this my primary countdown
+                                        <input type="checkbox" class="makePrimaryCD" id="makePrimaryCD" value="0"> Make this my primary countdown
                                     </label>
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="makePublicCD" value="0"> Share this countdown with everyone
+                                        <input type="checkbox" class="makePublicCD" id="makePublicCD" value="0"> Share this countdown with everyone
                                     </label>
                                 </div>
                             </div>

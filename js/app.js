@@ -55,9 +55,11 @@ $("#signUpBtn").click(function () {
 
 
 // NOTE: Activate the datepicker function from jQuery
-$("#datepicker").datepicker({
-    inline: true,
-    minDate: 0
+$(".datepicker").each(function () {
+    $(this).datepicker({
+        inline: true,
+        minDate: 0
+    });
 });
 
 
@@ -76,8 +78,22 @@ $("#countdownGoal").focus(function () {
 });
 
 
+//NOTE: Change text on edit countdown Modal
+$("#profileEditCountdownGoal").focus(function () {
+    $("#profileEditGoalDescription").slideDown();
+    $("#profileEditCountdownGoal").keyup(function () {
+        $(".cdgoal").html($("#profileEditCountdownGoal").val());
+    });
+    $("#profileEditCountdownGoal").blur(function () {
+        if (!$("#profileEditCountdownGoal").val()) {
+            $("#profileEditGoalDescription").slideUp();
+        }
+    });
+});
+
+
 // NOTE: Set Make Primary Countdown Checkbox value to True if checked
-$('#makePrimaryCD').click(function () {
+$('.makePrimaryCD').click(function () {
     if ($(this).prop("checked") === true) {
         $(this).attr("value", "1");
     } else {
@@ -86,7 +102,7 @@ $('#makePrimaryCD').click(function () {
 });
 
 // NOTE: Set Make Public Countdown Checkbox value to True if checked
-$('#makePublicCD').click(function () {
+$('.makePublicCD').click(function () {
     if ($(this).prop("checked") === true) {
         $(this).attr("value", "1");
     } else {
@@ -102,7 +118,7 @@ $("#addCountdownBtn").click(function () {
 
     if (!$("#countdownGoal").val()) {
         errorMsg = "Please enter a goal for your countdown";
-    } else if (!$("#datepicker").val() || !$("#endTimeHours").val() || !$("#endTimeMinutes").val() || !$("#endTimeTZ").val()) {
+    } else if (!$("#loggedInDatepicker").val() || !$("#endTimeHours").val() || !$("#endTimeMinutes").val() || !$("#endTimeTZ").val()) {
         errorMsg = "Please enter an end date, time and timezone for your countdown";
     } else {
 
@@ -156,6 +172,7 @@ $("#addCountdownBtn").click(function () {
 });
 
 
+//NOTE: Make Countdown Public From LoggedIn page
 $("#makePublicLink").click(function () {
     $.ajax({
         type: "POST",
@@ -201,7 +218,10 @@ function startCountdown() {
 
 //NOTE: Function to run when the profile page is selected
 function checkPage() {
-
+    
+    var profileEditCountdownId;
+    var errorMsg;
+    
     if (getUrlVars()["page"] === "profile") {
 
         $.ajax({
@@ -212,7 +232,7 @@ function checkPage() {
 
                 //TODO: make public button to switch if already public
                 //TODO: actions for edit and delete buttons
-                
+
                 if (result.length === 0) {
 
                     $('#profileCountdownsError').html("You currently have no countdowns to show, why don't you add a new one now?");
@@ -223,19 +243,19 @@ function checkPage() {
 
                         var goal = result[i]['goal'];
                         var profileCountdownId = result[i]['id'];
-                        
+
                         //NOTE: This creates the striped layout
                         if (i === 0 || i % 2 === 0) {
                             $("#profileCountdowns").append('<div class="container individualCountdown striped" id="countdownContainer' + i + '" data-countdown="' + profileCountdownId + '"></div>');
                         } else {
                             $("#profileCountdowns").append('<div class="container individualCountdown" id="countdownContainer' + i + '" data-countdown="' + profileCountdownId + '"></div>');
                         }
-                        
+
                         //NOTE: Add all countdowns
-                        $("#countdownContainer" + i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until ' + goal + '</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger profileDeleteCountdown" data-id="' + profileCountdownId + '">Delete Countdown</button></div></div>');
+                        $("#countdownContainer" + i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until ' + goal + '</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline profileEditCountdown" data-edit-id="' + profileCountdownId + '" data-toggle="modal" data-target="#profileEditCountdownModal">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger profileDeleteCountdown" data-delete-id="' + profileCountdownId + '">Delete Countdown</button></div></div>');
 
                     }
-                    
+
                     //NOTE: Initializes all countdowns
                     for (i = 0; i < result.length; i++) {
 
@@ -245,28 +265,28 @@ function checkPage() {
                         initializeClock('countdownContainer' + i, startDatetime, endDatetime);
 
                     }
-                    
+
                     //NOTE: Function to delete countdown
                     $(".profileDeleteCountdown").click(function () {
-                        
+
                         var containerId = $(this).data("id");
-                        
+
                         $.ajax({
                             type: "POST",
                             url: "controls/actions.php?action=deleteCountdown",
-                            data: "countdownId=" + $(this).data("id"),
+                            data: "countdownId=" + $(this).data("deleteId"),
                             success: function (resultDelete) {
-                                
+
                                 if (resultDelete === "countdownDeleted") {
 
                                     $("#profileCountdownAlert").addClass("alert-success").html("Your countdown has been successfully deleted").fadeIn().delay(2500).fadeOut();
-                                    
+
                                     $('*[data-countdown="' + containerId + '"]').fadeOut();
 
                                 } else {
 
                                     $("#profileCountdownAlert").addClass("alert-danger").html("We couldn't delete your countdown right now, please try again later").fadeIn().delay(2500).fadeOut();
-                                    
+
                                 }
 
                             }
@@ -274,6 +294,79 @@ function checkPage() {
                     });
 
 
+                    //NOTE: Function to edit countdown
+                    $(".profileEditCountdown").click(function () {
+                        
+                        profileEditCountdownId = $(this).data("editId");
+                        
+                        $(".exitEditCountdownModal").click(function () {
+                            location.reload();
+                        });
+                        
+                        $("#editCountdownBtn").click(function () {
+                            
+                            errorMsg = "";   
+
+                            if (!$("#profileEditCountdownGoal").val()) {
+                                errorMsg = "Please enter a goal for your countdown";
+                            } else if (!$("#profileEditDatepicker").val() || !$("#profileEditEndTimeHours").val() || !$("#profileEditEndTimeMinutes").val() || !$("#profileEditEndTimeTZ").val()) {
+                                errorMsg = "Please enter an end date, time and timezone for your countdown";
+                            } else {
+
+                                var countdownGoal = $("#profileEditCountdownGoal").val();
+                                var goalDescription = $('input[name="profileEditGoalRadios"]:checked').val();
+                                var goalAndDescription = "";
+
+                                var d = new Date();
+                                var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
+                                
+                                console.log(startDatetime);
+                                
+                                var endDatetime = $("#profileEditDatepicker").val() + " " + $("#profileEditEndTimeHours").val() + ":" + $("#profileEditEndTimeMinutes").val() + ":00 " + $("#profileEditEndTimeTZ").val();
+                                var encodedEndDateTime = encodeURIComponent(endDatetime);
+
+                                // NOTE: Apply goal descriptor
+                                if (goalDescription == "yourGoal") {
+                                    goalAndDescription = "your " + countdownGoal + "!";
+                                } else if (goalDescription == "theGoal") {
+                                    goalAndDescription = "the " + countdownGoal + "!";
+                                } else if (goalDescription == "goal") {
+                                    goalAndDescription = countdownGoal + "!";
+                                }
+
+                                // NOTE: AJAX request to add countdown to DB
+                                $.ajax({
+                                    type: "POST",
+                                    url: "controls/actions.php?action=editCountdown",
+                                    data: "countdownId=" + profileEditCountdownId + "&countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + encodedEndDateTime + "&makePrimaryCD=" + $("#profileEditMakePrimaryCD").val() + "&makePublicCD=" + $("#profileEditMakePublicCD").val(),
+                                    success: function (result) {
+                                        
+                                        if (result === "countdownEdited") {
+
+                                            $("#profileEditCountdownEditedAlert").html("Your countdown has been updated successfully").fadeIn().delay(2500).fadeOut();
+
+                                            setTimeout(function () {
+                                                location.reload();
+                                            }, 2800);
+
+                                        } else {
+
+                                            $("#profileEditCountdownAlert").html(result).fadeIn().delay(2500).fadeOut();
+
+                                        }
+
+                                    }
+                                });
+
+                            }
+
+                            if (errorMsg != "") {
+                                $("#profileEditCountdownAlert").html(errorMsg).fadeIn().delay(2500).fadeOut();
+                            }
+
+                        });
+
+                    });
 
                 }
 
@@ -291,3 +384,12 @@ function checkPage() {
 
 
 checkPage();
+
+var d = new Date();
+var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
+                                
+console.log(d);
+console.log(d.getUTCMonth());
+console.log(d.getUTCDate());
+console.log(d.getUTCFullYear());
+console.log(startDatetime);

@@ -153,6 +153,41 @@
     }
 
 
+    //NOTE: Function to edit existing countdown
+    if ($_GET['action'] == 'editCountdown') {
+        
+        if (!$link) {
+            
+            $errorMsg = "Unable to add countdown. Please try again later.";
+            die ($errorMsg);
+            
+        } else {
+            
+            // NOTE: Insert new Countdown into database
+            $updateQuery = "UPDATE countdowns SET goal='".mysqli_real_escape_string($link, $_POST['countdownGoal'])."', userid='".mysqli_real_escape_string($link, $_SESSION['id'])."', startdatetime='".mysqli_real_escape_string($link, $_POST['startDateTime'])."', enddatetime='".mysqli_real_escape_string($link, $_POST['endDateTime'])."', makepublic='".mysqli_real_escape_string($link, $_POST['makePublicCD'])."' WHERE id='".mysqli_real_escape_string($link, $_POST['countdownId'])."'";
+            
+            mysqli_query($link, $updateQuery);
+            
+            // NOTE: Update Primary Countdown if needed
+            if ($_POST['makePrimaryCD'] === "1") {
+                
+                $deleteQuery = "DELETE FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."'";
+
+                mysqli_query($link, $deleteQuery);
+
+                $insertQuery = "INSERT INTO default_countdown (`user_id`, `countdown_id`) VALUES ('".mysqli_real_escape_string($link, $_SESSION['id'])."', '".mysqli_real_escape_string($link, $_POST['countdownId'])."')";
+
+                mysqli_query($link, $insertQuery);
+                
+            }
+            
+            echo "countdownEdited";
+            
+        }
+        
+    }
+
+
     if ($_GET['action'] == 'countdownInfo') {
         
         if (!$link) {
