@@ -252,7 +252,7 @@ function checkPage() {
                         }
 
                         //NOTE: Add all countdowns
-                        $("#countdownContainer" + i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until ' + goal + '</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns"><button class="btn btn-info-outline profileEditCountdown" data-edit-id="' + profileCountdownId + '" data-toggle="modal" data-target="#profileEditCountdownModal">Edit Countdown</button>&nbsp;<button class="btn btn-warning-outline">Make Public</button></div><div class="col-xs-12 profileCountdownBtnsDelete"><button class="btn btn-danger profileDeleteCountdown" data-delete-id="' + profileCountdownId + '">Delete Countdown</button></div></div>');
+                        $("#countdownContainer" + i).append('<div class="row"><div class="col-xs-12"><p id="profileCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until ' + goal + '</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div><div class="col-xs-12 profileCountdownBtns profileCountdownBtnsDelete"><button class="btn btn-info-outline profileEditCountdown" data-edit-id="' + profileCountdownId + '" data-toggle="modal" data-target="#profileEditCountdownModal">edit...</button><button class="btn btn-danger profileDeleteCountdown" data-delete-id="' + profileCountdownId + '">delete</button></div></div>');
 
                     }
 
@@ -384,12 +384,3 @@ function checkPage() {
 
 
 checkPage();
-
-var d = new Date();
-var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
-                                
-console.log(d);
-console.log(d.getUTCMonth());
-console.log(d.getUTCDate());
-console.log(d.getUTCFullYear());
-console.log(startDatetime);

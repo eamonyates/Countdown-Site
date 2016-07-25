@@ -231,11 +231,11 @@ footer {
 }
 
 .profileCountdownBtns {
-    margin-top: 20px;
+    margin: 20px 0 10px 0;
 }
 
-.profileCountdownBtnsDelete {
-    margin: 10px 0 0;
+.profileEditCountdown {
+    margin-right: 10px;
 }
 
 .individualCountdown {
