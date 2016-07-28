@@ -101,6 +101,7 @@ $('.makePrimaryCD').click(function () {
     }
 });
 
+
 // NOTE: Set Make Public Countdown Checkbox value to True if checked
 $('.makePublicCD').click(function () {
     if ($(this).prop("checked") === true) {
@@ -208,7 +209,9 @@ function startCountdown() {
             var startDatetime = result[3];
             var endDatetime = result[4];
 
-            initializeClock('countdown', startDatetime, endDatetime);
+            
+            
+            initializeClock('countdownContainer', startDatetime, endDatetime);
             $("#countdownGoalDisplay").html(goal);
 
         }
@@ -218,11 +221,15 @@ function startCountdown() {
 
 //NOTE: Function to run when the profile page is selected
 function checkPage() {
-    
+
     var profileEditCountdownId;
     var errorMsg;
+
+    if (getUrlVars()["page"] === "loggedIn") {
+
+        startCountdown();
     
-    if (getUrlVars()["page"] === "profile") {
+    } else if (getUrlVars()["page"] === "profile") {
 
         $.ajax({
             url: "controls/actions.php?action=fetchCountdowns",
@@ -230,7 +237,7 @@ function checkPage() {
             dataType: 'JSON',
             success: function (result) {
 
-                //TODO: make public button to switch if already public
+                //TODO: FIX COUNTDOWN PROGRESS
                 //TODO: actions for edit and delete buttons
 
                 if (result.length === 0) {
@@ -296,16 +303,16 @@ function checkPage() {
 
                     //NOTE: Function to edit countdown
                     $(".profileEditCountdown").click(function () {
-                        
+
                         profileEditCountdownId = $(this).data("editId");
-                        
+
                         $(".exitEditCountdownModal").click(function () {
                             location.reload();
                         });
-                        
+
                         $("#editCountdownBtn").click(function () {
-                            
-                            errorMsg = "";   
+
+                            errorMsg = "";
 
                             if (!$("#profileEditCountdownGoal").val()) {
                                 errorMsg = "Please enter a goal for your countdown";
@@ -319,9 +326,9 @@ function checkPage() {
 
                                 var d = new Date();
                                 var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
-                                
+
                                 console.log(startDatetime);
-                                
+
                                 var endDatetime = $("#profileEditDatepicker").val() + " " + $("#profileEditEndTimeHours").val() + ":" + $("#profileEditEndTimeMinutes").val() + ":00 " + $("#profileEditEndTimeTZ").val();
                                 var encodedEndDateTime = encodeURIComponent(endDatetime);
 
@@ -340,7 +347,7 @@ function checkPage() {
                                     url: "controls/actions.php?action=editCountdown",
                                     data: "countdownId=" + profileEditCountdownId + "&countdownGoal=" + goalAndDescription + "&startDateTime=" + startDatetime + "&endDateTime=" + encodedEndDateTime + "&makePrimaryCD=" + $("#profileEditMakePrimaryCD").val() + "&makePublicCD=" + $("#profileEditMakePublicCD").val(),
                                     success: function (result) {
-                                        
+
                                         if (result === "countdownEdited") {
 
                                             $("#profileEditCountdownEditedAlert").html("Your countdown has been updated successfully").fadeIn().delay(2500).fadeOut();
@@ -374,9 +381,50 @@ function checkPage() {
 
         });
 
-    } else if (getUrlVars()["page"] === "loggedIn") {
+    } else if (getUrlVars()["page"] === "inspiration") {
 
-        startCountdown();
+        //TODO: Complete ajax call for public countdowns
+
+        $.ajax({
+            url: "controls/actions.php?action=fetchPublicCountdowns",
+            data: '',
+            dataType: 'JSON',
+            success: function (result) {
+
+                //WORK IN PROGRESS
+                for (i = 0; i < result.length; i++) {
+
+                    var goal = result[i]['goal'];
+                    var profileCountdownId = result[i]['id'];
+
+                    //NOTE: This creates the striped layout
+                    if (i === 0 || i % 2 === 0) {
+                        $("#publicCountdowns").append('<div class="container individualCountdown striped" id="publicCountdownContainer' + i + '" data-countdown="' + profileCountdownId + '"></div>');
+                    } else {
+                        $("#publicCountdowns").append('<div class="container individualCountdown" id="publicCountdownContainer' + i + '" data-countdown="' + profileCountdownId + '"></div>');
+                    }
+
+                    //NOTE: Add all countdowns
+                    $("#publicCountdownContainer" + i).append('<div class="row"><div class="col-xs-12"><p id="publicCountdownTime"><span class="years"></span> years | <span class="months"></span> months | <span class="weeks"></span> weeks | <span class="days"></span> days - <span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></p></div><div class="col-xs-12"><h6>Left until ' + goal + '</h6><p>Your Countdown Progress is <span class="progressText"></span></p><progress class="progress progressBar profileProgressBar" value="75" max="100"></progress></div></div>');
+
+                }
+                
+                //TODO: FIX:- Countdown Initializing
+            
+                //NOTE: Initializes all countdowns
+                for (i = 0; i < result.length; i++) {
+
+                    var startDatetime = result[i]['startdatetime'];
+                    var endDatetime = result[i]['enddatetime'];
+
+                    initializeClock('publicCountdownContainer' + i, startDatetime, endDatetime);
+                    console.log('publicCountdownContainer' + i + ', ' + startDatetime + ', ' + endDatetime);
+
+                }
+
+            }
+
+        });
 
     }
 

@@ -1,6 +1,6 @@
     <div class="alert" id="countdownPublicAlert"></div>
 
-   <div class="content">
+   <div class="content" id="countdownContainer">
     <div class="container" id="countdown">
         <div class="row" id="timerBig">
             <div class="col-md-3">Years

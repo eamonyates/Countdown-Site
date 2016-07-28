@@ -24,14 +24,15 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-info-outline pull-xs-right">edit info...</button>
+                <button class="btn btn-info-outline pull-xs-right" id="editPersonalInfo">edit info...</button> 
+                <!-- TODO: Add edit countdown interaction -->
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="row">
-            <h1 id="countdownHead">Countdowns</h1>
+            <div class="col-xs-12"><h1 id="countdownHead">Countdowns</h1></div>
         </div>
     </div>
 

@@ -43,7 +43,7 @@
         
         include 'views/inspiration.php';
     
-    } else if ($_GET['page'] == 'allCountdowns') {
+    } else if ($_GET['page'] == 'allCountdowns') { //TODO: Could this just redirect to profile page instead?
         
         include 'views/allCountdowns.php';
     

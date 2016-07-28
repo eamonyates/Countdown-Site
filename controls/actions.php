@@ -313,6 +313,32 @@
     }
 
 
+    if ($_GET['action'] == 'fetchPublicCountdowns') {
+        
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            $selectQuery = "SELECT * FROM countdowns WHERE makepublic = '1' LIMIT 20";
+            $result = mysqli_query($link, $selectQuery);
+            
+            $jsonarray = array();
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+            
+                $jsonarray[] = $row;
+            
+            }
+            
+            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+                
+        }
+        
+    }
+
+
     if ($_GET['action'] == 'logout') {
         
         session_unset();

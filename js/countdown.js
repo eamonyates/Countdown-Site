@@ -6,14 +6,6 @@
 //var deadline = '08/24/2016 15:30:25 UTC+0100';
 //var start = '04/21/2016 08:30:25 UTC-0000'; // NOTE: Only used for working out progress
 
-// TEST:
-//var t = Date.parse(deadline) - Date.parse(new Date());
-//console.log('deadline:' + deadline);
-//console.log('now:' + new Date());
-//console.log(t);
-//console.log(start);
-
-
 //NOTE: Function to read the GET variable in the URL
 function getUrlVars() {
     var vars = {};
@@ -93,45 +85,35 @@ function initializeClock(id, starttime, endtime) {
             var complete = Date.parse(new Date()) - Date.parse(starttime);
             var percent = 0;
             
-            /*
-            function setPercent(percent) {
-                document.getElementById('progressText').innerHTML = percent + '%';
-                document.getElementById('progressBar').setAttribute('value', percent);
-                document.getElementById('progressBar').innerHTML = ('value', percent + '%');
-
-                if (percent > 50) {
-                    document.getElementById('progressBar').className += " " + "progress-success";
-                } else {
-                    document.getElementById('progressBar').className += " " + "progress-warning";
-                }
-
-            }
-            */
-            
             function setPercent(percent) {
                 
-                if (getUrlVars()["page"] === "profile") {
+                var progressText = clock.querySelector('.progressText');
+                var progressBar = clock.querySelector('.progressBar');
                 
-                    var progressText = clock.querySelector('.progressText');
-                    var progressBar = clock.querySelector('.progressBar');
-                
-                } else if (getUrlVars()["page"] === "loggedIn") {
-                    
-                    var progressText = document.getElementById('countdownProgress').querySelector('.progressText');
-                    var progressBar = document.getElementById('countdownProgress').querySelector('.progressBar');
-                    
-                }
-                
-                progressText.innerHTML = percent + '%';
+                progressText.innerHTML = (percent + '%');
                 progressBar.setAttribute('value', percent);
                 progressBar.innerHTML = ('value', percent + '%');
-
-                if (percent >= 50 && percent < 100) {
-                    progressBar.className += " " + "progress-warning";
-                } else if (percent < 50) {
-                    progressBar.className += " " + "progress-danger";
+                
+                if (getUrlVars()["page"] === "profile" || getUrlVars()["page"] === "inspiration") {
+                    
+                    if (percent >= 50 && percent < 100) {
+                        progressBar.className = "progress progressBar profileProgressBar progress-warning";
+                    } else if (percent < 50) {
+                        progressBar.className = "progress progressBar profileProgressBar progress-danger";
+                    } else {
+                        progressBar.className = "progress progressBar profileProgressBar progress-success";
+                    }
+                
                 } else {
-                    progressBar.className += " " + "progress-success";
+                    
+                    if (percent >= 50 && percent < 100) {
+                        progressBar.className = "progress progressBar progress-warning";
+                    } else if (percent < 50) {
+                        progressBar.className = "progress progressBar progress-danger";
+                    } else {
+                        progressBar.className = "progress progressBar progress-success";
+                    }
+                    
                 }
 
             }
