@@ -35,6 +35,7 @@
                 </div>
                 <a class="btn btn-lg btn-primary" id="addCountdown" data-toggle="modal" data-target="#addCountdownModal">Add A New Countdown</a>
 
+            <!-- TODO: Update other countdowns to show first three of other countdowns -->
             </div>
             <div class="col-md-5" id="otherCountdowns">
                 <h3>Your other countdowns</h3>

@@ -12,20 +12,20 @@
                     <tbody>
                         <tr>
                             <th scope="row">First Name</th>
-                            <td>Mark</td>
+                            <td id="infoFirstName"></td>
                         </tr>
                         <tr>
                             <th scope="row">Last Name</th>
-                            <td>Jacob</td>
+                            <td id="infoLastName"></td>
                         </tr>
                         <tr>
                             <th scope="row">Email Address</th>
-                            <td>mark@jacob.com</td>
+                            <td id="infoEmail"></td>
                         </tr>
                     </tbody>
                 </table>
                 <button class="btn btn-info-outline pull-xs-right" id="editPersonalInfo">edit info...</button> 
-                <!-- TODO: Add edit countdown interaction -->
+                <!-- TODO: Add edit countdown interaction and feed to database -->
             </div>
         </div>
     </div>

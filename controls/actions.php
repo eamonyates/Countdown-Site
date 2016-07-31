@@ -338,6 +338,32 @@
         
     }
 
+    
+    if ($_GET['action'] == 'fetchPersonalInfo') {
+    
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+        
+            $selectQuery = "SELECT * FROM users WHERE id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
+            $result = mysqli_query($link, $selectQuery);
+            
+            $jsonarray = array();
+            
+            while ($row = mysqli_fetch_assoc($result)) {
+            
+                $jsonarray[] = $row;
+            
+            }
+            
+            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+        
+        }
+    
+    }
+
 
     if ($_GET['action'] == 'logout') {
         
