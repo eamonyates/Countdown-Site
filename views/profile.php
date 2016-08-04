@@ -24,7 +24,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-info-outline pull-xs-right" id="editPersonalInfo">edit info...</button> 
+                <button class="btn btn-info-outline pull-xs-right" id="editPersonalInfo" value="edit">edit info...</button> 
                 <!-- TODO: Add edit countdown interaction and feed to database -->
             </div>
         </div>

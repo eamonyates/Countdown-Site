@@ -365,6 +365,25 @@
     }
 
 
+    if ($_GET['action'] == 'updatePersonalInfo') {
+    
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            $updateQuery = "UPDATE users SET firstName = '".mysqli_real_escape_string($link, $_POST['firstName'])."', lastName = '".mysqli_real_escape_string($link, $_POST['lastName'])."', email = '".mysqli_real_escape_string($link, $_POST['email'])."' WHERE id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
+            
+            mysqli_query($link, $updateQuery);
+            
+            echo "infoUpdated";
+            
+        }
+    
+    }
+
+
     if ($_GET['action'] == 'logout') {
         
         session_unset();

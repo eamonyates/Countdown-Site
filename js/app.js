@@ -219,17 +219,11 @@ function startCountdown() {
 };
 
 
-//NOTE: Update Edit Info on profile page
-$('#editPersonalInfo').click(function () {
-
-    //TODO: actions for edit button
-    alert('test');
-
-});
-
-
 function profileGetCountdowns() {
 
+    //TODO: Logged in page other countdowns section needs updating
+    //TODO: Have modal carry the current info for the right countdown when editing them...
+    
     return $.ajax({
         url: "controls/actions.php?action=fetchCountdowns",
         data: '',
@@ -385,16 +379,63 @@ function profileGetInfo() {
         url: "controls/actions.php?action=fetchPersonalInfo",
         data: '',
         dataType: 'JSON',
-        success: function (result) {
-            
-            $("#infoFirstName").html(result[0]['firstName']);
-            $("#infoLastName").html(result[0]['lastName']);
-            $("#infoEmail").html(result[0]['email']);
-        
+        success: function (personalInfo) {
+
+            $("#infoFirstName").html(personalInfo[0]['firstName']);
+            $("#infoLastName").html(personalInfo[0]['lastName']);
+            $("#infoEmail").html(personalInfo[0]['email']);
+
+            //NOTE: Update Edit Info on profile page
+            $('#editPersonalInfo').click(function () {
+
+                if ($(this).val() === "edit") {
+
+                    $("#infoFirstName").html('<input type="text" class="form-control" id="infoFirstNameEditable" placeholder="Firstname..." value="' + personalInfo[0]['firstName'] + '">');
+
+                    $("#infoLastName").html('<input type="text" class="form-control" id="infoLastNameEditable" placeholder="Lastname..." value="' + personalInfo[0]['lastName'] + '">');
+
+                    $("#infoEmail").html('<input type="text" class="form-control" id="infoEmailEditable" placeholder="Email..." value="' + personalInfo[0]['email'] + '">');
+
+                    $("#editPersonalInfo").attr("value", "save").html("save...");
+
+                } else if ($("#editPersonalInfo").val() === "save") {
+
+                    $("#editPersonalInfo").attr("value", "edit").html("edit info...");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "controls/actions.php?action=updatePersonalInfo",
+                        data: "firstName=" + $("#infoFirstNameEditable").val() + "&lastName=" + $("#infoLastNameEditable").val() + "&email=" + $("#infoEmailEditable").val(),
+                        success: function (updateResult) {
+
+                            if (updateResult === "infoUpdated") {
+
+                                $("#profileCountdownAlert").addClass("alert-success").html("Your information has been successfully updated").fadeIn().delay(2500).fadeOut();    
+                                
+                            } else {
+                                
+                                $("#profileCountdownAlert").addClass("alert-danger").html("We couldn't edit your information right now, please try again later").fadeIn().delay(2500).fadeOut();
+                                
+                            }
+
+                        }
+
+                    });
+
+                    $("#infoFirstName").html($("#infoFirstNameEditable").val());
+                    $("#infoLastName").html($("#infoLastNameEditable").val());
+                    $("#infoEmail").html($("#infoEmailEditable").val());
+
+                }
+
+            });
+
         }
     });
 
 }
+
+
 
 
 //NOTE: Function to run when the profile page is selected
@@ -409,7 +450,7 @@ function checkPage() {
 
     } else if (getUrlVars()["page"] === "profile") {
 
-        $.when(profileGetInfo(), profileGetCountdowns()).done(function () {});
+        $.when(profileGetInfo(), profileGetCountdowns()).done();
 
     } else if (getUrlVars()["page"] === "inspiration") {
 
