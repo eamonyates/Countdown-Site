@@ -383,6 +383,40 @@
     
     }
 
+        
+    if ($_GET['action'] == 'fetchOtherCountdownInfo') {
+    
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            //TODO: get other countdown info
+            
+            $defaultCountdownQuery = "SELECT countdown_id FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
+            
+            $result = mysqli_query($link, $defaultCountdownQuery);
+            $row = mysqli_fetch_row($result);
+            
+            $otherCountdownQuery = "SELECT * FROM countdowns WHERE userid = '".mysqli_real_escape_string($link, $_SESSION['id'])."' AND id != '".$row[0]."' LIMIT 3";
+            
+            $otherCountdownResult = mysqli_query($link, $otherCountdownQuery);
+            
+            $jsonarray = array();
+            
+            while ($jsonRow = mysqli_fetch_assoc($otherCountdownResult)) {
+            
+                $jsonarray[] = $jsonRow;
+            
+            }
+            
+            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            
+        }
+    
+    }
+        
 
     if ($_GET['action'] == 'logout') {
         

@@ -221,7 +221,8 @@ function startCountdown() {
 
 function profileGetCountdowns() {
 
-    //TODO: Logged in page other countdowns section needs updating
+    //TODO: Logged in page needs to be fixed when you have no countdowns
+    //TODO: Fix Header bar when small
     //TODO: Have modal carry the current info for the right countdown when editing them...
     
     return $.ajax({
@@ -447,6 +448,93 @@ function checkPage() {
     if (getUrlVars()["page"] === "loggedIn") {
 
         startCountdown();
+        
+        $.ajax({
+            url: "controls/actions.php?action=fetchOtherCountdownInfo",
+            data: '',
+            dataType: 'JSON',
+            success: function (otherCountdownData) {
+                
+                //NOTE: Update other countdown info depending on how much is left for each
+                
+                if (!otherCountdownData) {
+                    
+                    $("#otherCountdownsContainer").append('<div class="count"><p>You have no other countdowns yet. Why not add one now?</p></div>');
+                    
+                } else {
+                
+                    for (i = 0; i < otherCountdownData.length; i++) {
+
+                        var otherGoal = otherCountdownData[i]['goal'];
+                        var timeLeft = getTimeRemaining(otherCountdownData[i]['enddatetime']);
+                        var writtenTimeLeft;
+
+                        if (timeLeft.total < 0) {
+                            writtenTimeLeft = "Completed";
+                        } else {
+                            switch (timeLeft.years) {
+                                case 0:
+                                    switch (timeLeft.months) {
+                                        case 0:
+                                            switch (timeLeft.weeks) {
+                                                case 0:
+                                                    switch (timeLeft.days) {
+                                                        case 0:
+                                                            writtenTimeLeft = "Only hours left to go";
+                                                            break;
+                                                        case 1:
+                                                            writtenTimeLeft = timeLeft.days + " day to go";
+                                                            break;
+                                                        default:
+                                                            writtenTimeLeft = timeLeft.days + " days to go";
+                                                    }
+                                                    break;
+                                                default:
+                                                    switch (timeLeft.days) {
+                                                        case 0:
+                                                            writtenTimeLeft = timeLeft.weeks + " weeks to go";
+                                                            break;
+                                                        case 1:
+                                                            writtenTimeLeft = timeLeft.weeks + " weeks " + timeLeft.days + " day to go";
+                                                            break;
+                                                        default:
+                                                            writtenTimeLeft = timeLeft.weeks + " weeks " + timeLeft.days + " days to go";
+                                                    }     
+                                            }
+                                            break;
+                                        default:
+                                            switch (timeLeft.weeks) {
+                                                case 0:
+                                                    writtenTimeLeft = timeLeft.months + " months to go";
+                                                    break;
+                                                case 1:
+                                                    writtenTimeLeft = timeLeft.months + " months " + timeLeft.weeks + " week to go";
+                                                    break;
+                                                default:
+                                                    writtenTimeLeft = timeLeft.months + " months " + timeLeft.weeks + " weeks to go";
+                                            }
+                                    }
+                                    break;
+                                default:
+                                    switch (timeLeft.days) {
+                                        case 0:
+                                            writtenTimeLeft = timeLeft.months + " months to go";
+                                            break;
+                                        case 1:
+                                            writtenTimeLeft = timeLeft.months + " months " + timeLeft.weeks + " week to go";
+                                            break;
+                                        default:
+                                            writtenTimeLeft = timeLeft.months + " months " + timeLeft.weeks + " weeks to go";
+                                    }
+                            }
+                        }
+
+                        $("#otherCountdownsContainer").append('<div class="count" id="otherCountdown'+i+'"><h4>Left until ' + otherGoal + '</h4><p>' + writtenTimeLeft + '</p></div>');
+
+                    }
+                }
+            }
+        });
 
     } else if (getUrlVars()["page"] === "profile") {
 

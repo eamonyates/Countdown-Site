@@ -39,19 +39,8 @@
             </div>
             <div class="col-md-5" id="otherCountdowns">
                 <h3>Your other countdowns</h3>
-                <div class="count">
-                    <h4>Countdown 1</h4>
-                    <p>1 year and 2 months to go</p>
-                </div>
-                <div class="count">
-                    <h4>Countdown 2</h4>
-                    <p>1 month and 3 days to go</p>
-                </div>
-                <div class="count">
-                    <h4>Countdown 3</h4>
-                    <p>1 hour and 7 minutes to go</p>
-                </div>
-                <a href="?page=allCountdowns" id="allCountdowns">All your countdowns...</a>
+                <div id="otherCountdownsContainer"></div>
+                <a href="?page=profile" id="allCountdowns">All your countdowns...</a>
             </div>
         </div>
     </div>
