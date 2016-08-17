@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <h1>Be Inspired For Your Next Countdown...</h1>
+            <h1 id="inspirationHeader">Be Inspired For Your Next Countdown...</h1>
         </div>
     </div>
 </div>

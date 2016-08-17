@@ -1,37 +1,52 @@
 <header>
-    <nav class="navbar navbar-static-top navbar-light bg-faded">
-        <button class="navbar-toggler hidden-lg-up pull-xs-right" type="button" data-toggle="collapse" data-target="#startupNavbar">
-            &#9776;
-        </button>
+    <nav class="navbar">
+        
+        <div class="pos-f-t hidden-lg-up" id="navbarSmall">
+            
+            <div class="collapse navbar-dark" id="navbar-header">
+                <div class="container-fluid bg-inverse p-a-2">
+                
+                    <h1><a class="white-nav nav-link" href="?page=loggedIn">Get Set, Go!</a></h1>
+                    <p><a class="white-nav nav-link" href="?page=inspiration">Countdown Inspiration</a></p>
+                    <p><a class="white-nav nav-link" href="?page=profile">Your Profile</a></p>
+                    <p><a id="logoutBtnSmall" class="btn btn-danger" href="?action=logout">Log Out</a></p>
 
-        <a class="navbar-brand" href="?page=loggedIn">Get Set, Go!</a>
-
-        <div class="collapse navbar-toggleable-md" id="startupNavbar">
-
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="?page=inspiration">Countdown Inspiration</a>
-                </li>
-            </ul>
-
-            <a id="logoutBtn" class="btn btn-danger pull-md-right" href="?action=logout">Log Out</a>
-               
-            <form class="pull-md-right form-inline navbar-input-group">
-                <div class="input-group pull-md-right">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-success-outline" type="button">Go!</button>
-                    </span>
                 </div>
-            </form>
+            </div>
+            
+            <div class="navbar navbar-light bg-faded navbar-static-top">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header">
+                    &#9776;
+                </button>
+            </div>
+        
+        </div>
+        
+        <div class="pos-f-t hidden-md-down" id="navbarLarge">
+            
+            <div class="container-fluid bg-inverse p-a-1 navbar-light bg-faded">
+                <ul class="nav navbar-nav">
 
-            <ul id="yourProfile" class="nav navbar-nav pull-md-right">
-                <li class="nav-item">
-                    <a class="nav-link" href="?page=profile">Your Profile</a>
-                </li>
-            </ul>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="?page=loggedIn">Get Set, Go!</a>
+                    </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="?page=inspiration">Countdown Inspiration</a>
+                    </li>
 
+                    <li class="nav-item pull-lg-right">
+                        <a id="logoutBtnLarge" class="btn btn-danger" href="?action=logout">Log Out</a>
+                    </li>
+
+                    <li class="nav-item pull-lg-right yourProfile">   
+                        <a class="nav-link" href="?page=profile">Your Profile</a>
+                    </li>
+
+                </ul> 
+            </div>
+                    
         </div>
     </nav>
+    
 </header>
