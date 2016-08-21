@@ -392,8 +392,7 @@
             
         } else {
             
-            //TODO: get other countdown info
-            
+            // NOTE: Get the info for other countdowns on the loggedIn page
             $defaultCountdownQuery = "SELECT countdown_id FROM default_countdown WHERE user_id = '".mysqli_real_escape_string($link, $_SESSION['id'])."' LIMIT 1";
             
             $result = mysqli_query($link, $defaultCountdownQuery);
@@ -415,6 +414,35 @@
             
         }
     
+    }
+
+
+    if ($_GET['action'] == 'editGrabInfo') {
+        
+        if (!$link) {
+            
+            echo "No database connection";
+            
+        } else {
+            
+            
+            
+            $selectQuery = "SELECT * FROM countdowns WHERE id = '".mysqli_real_escape_string($link, $_POST['countdownId'])."' LIMIT 1";
+            
+            $result = mysqli_query($link, $selectQuery);
+            
+            $jsonarray = array();
+            
+            while ($jsonRow = mysqli_fetch_assoc($result)) {
+            
+                $jsonarray[] = $jsonRow;
+            
+            }
+            
+            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            
+        }
+        
     }
         
 

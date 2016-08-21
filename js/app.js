@@ -197,7 +197,3 @@ $("#makePublicLink").click(function () {
 
 //NOTE: Check URL page to run correct tasks via checkPage function
 checkPage();
-
-
-//TODO: Fix Header bar when small
-//TODO: Have modal carry the current info for the right countdown when editing them...

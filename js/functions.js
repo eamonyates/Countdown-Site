@@ -107,6 +107,47 @@ function profileGetCountdowns() {
                 $(".profileEditCountdown").click(function () {
 
                     profileEditCountdownId = $(this).data("editId");
+                    
+                    //NOTE: AJAX request to gather this countdown's info and add it to the value of the input fields
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "controls/actions.php?action=editGrabInfo",
+                        data: "countdownId=" + profileEditCountdownId,
+                        dataType: "JSON",
+                        success: function (resultEditInfo) {
+                            
+                            console.log(resultEditInfo);
+                            console.log(resultEditInfo[0]["enddatetime"]);
+                            
+                            editCountdownGoal = resultEditInfo[0]["goal"];
+                            editEndDateTime = resultEditInfo[0]["enddatetime"];
+                            arrayEndDateTime = editEndDateTime.split(" ");
+                            arrayEndTime = arrayEndDateTime[1].split(":");
+                            
+                            if (editCountdownGoal.substr(0,4) === "your") {
+                                $("#profileEditCountdownGoal").attr("value", editCountdownGoal.substr(5));
+                                $("#profileEditYourGoalRadio").prop("checked", true);
+                                
+                            } else if (editCountdownGoal.substr(0,3) === "the") {
+                                $("#profileEditCountdownGoal").attr("value", editCountdownGoal.substr(4));
+                                $("#profileEditTheGoalRadio").prop("checked", true);
+                                
+                            } else {
+                                $("#profileEditCountdownGoal").attr("value", editCountdownGoal);
+                                $("#profileEditGoalRadio").prop("checked", true);
+                                
+                            }
+                            
+                            $("#profileEditDatepicker").attr("value", arrayEndDateTime[0]);
+                            $("#profileEditEndTimeHours option[value='"+arrayEndTime[0]+"']").attr("selected","selected");
+                            $("#profileEditEndTimeMinutes option[value='"+arrayEndTime[1]+"']").attr("selected","selected");
+                            $("#profileEditEndTimeTZ option[value='"+arrayEndDateTime[2]+"']").attr("selected","selected");
+                            $("#profileEditMakePublicCD").prop("checked", true).attr("value", "1");
+                            
+                        }
+                    });
+                    
 
                     $(".exitEditCountdownModal").click(function () {
                         location.reload();
