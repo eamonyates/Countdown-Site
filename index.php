@@ -11,10 +11,14 @@
         
         define("TITLE", "5-4-3-2-1 | Walkthrough");
         
-    } else if ($_GET['page'] == 'loggedin') {
+    } else if ($_GET['page'] == 'loggedIn') {
         
         define("TITLE", "5-4-3-2-1 | Home");
         
+    } else if ($_GET['page'] == 'profile') {
+        
+        define("TITLE", "5-4-3-2-1 | Profile");
+    
     } else {
         
         define("TITLE", "5-4-3-2-1 | Sign Up");

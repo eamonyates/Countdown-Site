@@ -88,7 +88,8 @@ a:hover {
 #countdownAlert, 
 #countdownAddedAlert, 
 #profileEditCountdownAlert,
-#profileEditCountdownEditedAlert {
+#profileEditCountdownEditedAlert,
+#howTo {
     display: none;
 }
 

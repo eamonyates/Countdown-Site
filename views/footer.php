@@ -2,7 +2,7 @@
             <div class="container">
                 <div class="row">
                     <span class="buildInstructions">
-                        <a class="nav-link" href="?page=walkthrough">How I made this...</a>
+                        <a class="nav-link" id="howTo" href="?page=walkthrough">How I made this...</a>
                     </span>
                     <span class="text-muted pull-xs-right">&copy; 2016 - Eamon Yates</span>
                 </div>
