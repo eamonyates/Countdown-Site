@@ -1,9 +1,30 @@
 // NOTE: If login button is clicked use AJAX to submit POST request
-$("#loginBtn").click(function () {
+$("#loginBtnLarge").click(function () {
     $.ajax({
         type: "POST",
         url: "controls/actions.php?action=login",
-        data: "email=" + $("#loginEmail").val() + "&password=" + $("#loginPassword").val(),
+        data: "email=" + $("#loginEmailLarge").val() + "&password=" + $("#loginPasswordLarge").val(),
+        success: function (result) {
+
+            if (result == "login") {
+
+                window.location.assign("?page=loggedIn");
+
+            } else {
+
+                $("#loginAlert").html(result).slideDown().delay(2200).slideUp();
+
+            }
+
+        }
+    });
+});
+
+$("#loginBtnSmall").click(function () {
+    $.ajax({
+        type: "POST",
+        url: "controls/actions.php?action=login",
+        data: "email=" + $("#loginEmailSmall").val() + "&password=" + $("#loginPasswordSmall").val(),
         success: function (result) {
 
             if (result == "login") {

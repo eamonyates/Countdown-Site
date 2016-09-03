@@ -105,7 +105,11 @@ a:hover {
     border-radius:0;
 }
 
-#navbarSmall h1 {
+#navbarSmall h1, #navbarSmallLoggedOut h1 {
+    margin-bottom:20px;
+}
+
+#navbarSmallLoggedOut input {
     margin-bottom:20px;
 }
 
@@ -117,11 +121,11 @@ a:hover {
     margin:30px 0;
 }
 
-#navbarLarge div {
+#navbarLarge div, #navbarLargeLoggedOut div {
     height:60px;
 }
 
-#navbarLarge div ul {
+#navbarLarge div ul, #navbarLargeLoggedOut div ul {
     margin-top:-5px;
 }
 
@@ -154,9 +158,29 @@ footer {
 
 #countdown {
     text-align: center;
-    margin-top: 20px;
     font-family: helvetica, arial, sans-serif;
     font-size: 2rem;
+    
+    display: -webkit-box;
+    
+    display: -webkit-flex;
+    
+    display: -ms-flexbox;
+    
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+#timerSmall {
+    margin: 30px 0;
 }
 
 #countdown #timerDescription h2 {
@@ -164,13 +188,39 @@ footer {
 }
 
 #underTimer {
-    margin-top:20px;
+    margin-top:80px;
+    background-color: #EDEDED;
 }
 
-#countdownProgress, #otherCountdowns {
-    border: 2px solid #333;
+#countdownProgress {
     padding: 10px 20px;
-    border-radius: 10px;
+}
+
+#countdownProgress, #addCountdownContainer {
+    display: -webkit-box;
+    
+    display: -webkit-flex;
+    
+    display: -ms-flexbox;
+    
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+#countdownProgress {
+    height: 400px;
+}
+
+#addCountdownContainer {
+    margin: 20px 0;
 }
 
 #countdownProgress p, #countdownProgress h3 {
@@ -182,10 +232,33 @@ footer {
 }
 
 #addCountdown {
-    margin-top:20px;
     display:block;
     line-height:65px;
     text-transform: uppercase;
+}
+
+#otherCountdownsOuterContainer {
+    padding: 10px 20px;
+    background-color: #373a3c;
+    color: #D2DEE5;
+    text-align: center;
+}
+
+#otherCountdownsOuterContainer h2,
+#otherCountdownsOuterContainer h4 {
+    color: white;
+}
+
+#otherCountdownsOuterContainer h2 {
+    margin: 10px 0 35px 0;
+}
+
+#otherCountdownsOuterContainer a {
+    color: #1B96FF;
+}
+
+#otherCountdownsContainer {
+    margin-left:20px;
 }
 
 #goalDescription,
@@ -203,7 +276,6 @@ footer {
 
 #otherCountdowns h3 {
     font-weight:normal;
-    text-align:center;
     margin-bottom:20px;
 }
 
@@ -292,13 +364,13 @@ footer {
 /* MEDIA QUERIES */
 
 @media (min-width: 34em) {
-    #otherCountdowns {
-        margin-bottom: 20px;
+    #otherCountdowns, #countdownProgress {
+        margin: 20px 0;
     }
 }
 
 @media (max-width: 47.9em) {
-    #otherCountdowns {
+    #otherCountdowns, #countdownProgress {
         margin:20px 15px;
     }
 }

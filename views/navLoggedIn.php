@@ -1,6 +1,6 @@
 <header>
+   
     <nav class="navbar">
-        
         <div class="pos-f-t hidden-lg-up" id="navbarSmall">
             
             <div class="collapse navbar-dark" id="navbar-header">

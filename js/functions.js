@@ -298,6 +298,10 @@ function checkPage() {
 
     if (getUrlVars()["page"] === "loggedIn") {
 
+        
+        loggedInHeight = ($(window).height())-120;
+        $("#countdown").css("min-height",loggedInHeight + "px");
+        
         startCountdown();
         
         $.ajax({

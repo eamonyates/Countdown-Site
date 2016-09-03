@@ -1,16 +1,24 @@
-    <div class="alert" id="countdownPublicAlert"></div>
+<div class="alert" id="countdownPublicAlert"></div>
 
-   <div class="content" id="countdownContainer">
+<div class="content" id="countdownContainer">
     <div class="container" id="countdown">
         <div class="row" id="timerBig">
-            <div class="col-md-3">Years
-                <br /><span class="years"></span></div>
-            <div class="col-md-3">Months
-                <br /><span class="months"></span></div>
-            <div class="col-md-3">Weeks
-                <br /><span class="weeks"></span></div>
-            <div class="col-md-3">Days
-                <br /><span class="days"></span></div>
+            <div class="col-md-3 grey">
+                <span class="years"></span>
+                <br />Years
+            </div>
+            <div class="col-md-3 grey">
+                <span class="months"></span>
+                <br />Months
+            </div>
+            <div class="col-md-3 grey">
+                <span class="weeks"></span>
+                <br />Weeks
+            </div>
+            <div class="col-md-3 grey">
+                <span class="days"></span>
+                <br />Days
+            </div>
         </div>
         <div class="row" id="timerSmall">
             <div class="col-md-12">
@@ -24,22 +32,41 @@
         </div>
     </div>
 
-    <div class="container" id="underTimer">
+    <div class="container-fluid" id="underTimer">
         <div class="row">
-            <div class="col-md-7">
-                <div id="countdownProgress">
-                    <h3>Your Countdown Progress</h3>
-                    <p class="lead progressText" id="progressText"></p>
-                    <progress id="progressBar" class="progress progressBar" value="75" max="100"></progress>
-                    <a id="makePublicLink">Inspire others and make your countdown public...</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" id="countdownProgress">
+                        <h3>Your Countdown Progress</h3>
+                        <p class="lead progressText" id="progressText"></p>
+                        <progress id="progressBar" class="progress progressBar" value="75" max="100"></progress>
+                        <a id="makePublicLink">Inspire others and make your countdown public...</a>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="newCountdownBtnContainer">
+        <div class="row">
+            <div class="col-md-12" id="addCountdownContainer">
                 <a class="btn btn-lg btn-primary" id="addCountdown" data-toggle="modal" data-target="#addCountdownModal">Add A New Countdown</a>
             </div>
-            <div class="col-md-5" id="otherCountdowns">
-                <h3>Your other countdowns</h3>
-                <div id="otherCountdownsContainer"></div>
-                <a href="?page=profile" id="allCountdowns">All your countdowns...</a>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="otherCountdownsOuterContainer">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" id="otherCountdowns">
+                        <h2>Your other countdowns</h2>
+                        <div id="otherCountdownsContainer"></div>
+                        <a href="?page=profile" id="allCountdowns">All your countdowns...</a>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -55,7 +82,7 @@
                     <h4 class="modal-title" id="countdownModalLabel">Add A New Countdown</h4>
                 </div>
                 <div class="modal-body">
-                    
+
                     <div class="alert alert-danger" id="countdownAlert"></div>
                     <div class="alert alert-success" id="countdownAddedAlert"></div>
 
@@ -108,8 +135,8 @@
                                         <option value="<?php echo $paddedHours; ?>">
                                             <?php echo $paddedHours; ?>
                                         </option>
-                                        
-                                    <?php } ?>
+
+                                        <?php } ?>
                                 </select>
 
                                 <select class="c-select" id="endTimeMinutes">
@@ -120,7 +147,7 @@
                                         <option value="<?php echo $paddedMinutes; ?>">
                                             <?php echo $paddedMinutes; ?>
                                         </option>
-                                    <?php } ?>
+                                        <?php } ?>
                                 </select>
 
                                 <select class="c-select" id="endTimeTZ">
@@ -167,7 +194,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <div class="col-sm-10 col-sm-offset-2">
                                 <div class="checkbox">
@@ -182,7 +209,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </form>
 
                 </div>
