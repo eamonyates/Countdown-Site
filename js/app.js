@@ -152,8 +152,6 @@ $("#addCountdownBtn").click(function () {
 
         var endDatetime = $("#loggedInDatepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val();
         
-        alert(endDatetime);
-        
         var encodedEndDateTime = encodeURIComponent(endDatetime);
 
         // NOTE: Apply goal descriptor
