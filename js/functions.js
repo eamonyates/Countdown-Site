@@ -117,9 +117,6 @@ function profileGetCountdowns() {
                         dataType: "JSON",
                         success: function (resultEditInfo) {
                             
-                            console.log(resultEditInfo);
-                            console.log(resultEditInfo[0]["enddatetime"]);
-                            
                             editCountdownGoal = resultEditInfo[0]["goal"];
                             editEndDateTime = resultEditInfo[0]["enddatetime"];
                             arrayEndDateTime = editEndDateTime.split(" ");
@@ -169,8 +166,6 @@ function profileGetCountdowns() {
 
                             var d = new Date();
                             var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
-
-                            console.log(startDatetime);
 
                             var endDatetime = $("#profileEditDatepicker").val() + " " + $("#profileEditEndTimeHours").val() + ":" + $("#profileEditEndTimeMinutes").val() + ":00 " + $("#profileEditEndTimeTZ").val();
                             var encodedEndDateTime = encodeURIComponent(endDatetime);
