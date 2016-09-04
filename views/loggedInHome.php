@@ -117,7 +117,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="datepicker" class="col-sm-2 form-control-label">End Date</label>
+                            <label for="loggedInDatepicker" class="col-sm-2 form-control-label">End Date</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control datepicker" id="loggedInDatepicker" placeholder="Choose a date...">
                             </div>

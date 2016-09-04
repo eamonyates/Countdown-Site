@@ -150,7 +150,10 @@ $("#addCountdownBtn").click(function () {
         var d = new Date();
         var startDatetime = d.getUTCMonth() + "/" + d.getUTCDate() + "/" + d.getUTCFullYear() + " " + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds() + " UTC-0000";
 
-        var endDatetime = $("#datepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val();
+        var endDatetime = $("#loggedInDatepicker").val() + " " + $("#endTimeHours").val() + ":" + $("#endTimeMinutes").val() + ":00 " + $("#endTimeTZ").val();
+        
+        alert(endDatetime);
+        
         var encodedEndDateTime = encodeURIComponent(endDatetime);
 
         // NOTE: Apply goal descriptor
