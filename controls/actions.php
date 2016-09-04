@@ -306,7 +306,7 @@
             
             }
             
-            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            echo json_encode($jsonarray);
                 
         }
         
@@ -332,7 +332,7 @@
             
             }
             
-            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            echo json_encode($jsonarray);
                 
         }
         
@@ -358,7 +358,7 @@
             
             }
             
-            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            echo json_encode($jsonarray);
         
         }
     
@@ -410,7 +410,7 @@
             
             }
             
-            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            echo json_encode($jsonarray);
             
         }
     
@@ -439,7 +439,7 @@
             
             }
             
-            echo json_encode($jsonarray, JSON_UNESCAPED_SLASHES);
+            echo json_encode($jsonarray);
             
         }
         
