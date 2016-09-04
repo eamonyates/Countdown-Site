@@ -6,7 +6,7 @@
             <div class="collapse navbar-dark" id="navbar-header">
                 <div class="container-fluid bg-inverse p-a-2">
 
-                    <h1><a class="white-nav nav-link" href="?page=loggedIn">Get Set, Go!</a></h1>
+                    <h1><a class="white-nav nav-link" href="index.php">Get Set, Go!</a></h1>
                     <form class="pull-md-left navbar-input-group">
                         <input type="email" name="loginEmail" id="loginEmailSmall" class="form-control" placeholder="Email Address">
                         <input class="form-control" type="password" id="loginPasswordSmall" name="password" placeholder="Password">
@@ -30,7 +30,7 @@
                 <ul class="nav navbar-nav">
 
                     <li class="nav-item">
-                        <a class="navbar-brand" href="?page=loggedIn">Get Set, Go!</a>
+                        <a class="navbar-brand" href="index.php">Get Set, Go!</a>
                     </li>
 
                     <li class="nav-item">
